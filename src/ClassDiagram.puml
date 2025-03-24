@@ -1,0 +1,49 @@
+@startuml
+class ChessGUI {
+    + void ChooseGameMode()
+    + void ChooseColor()
+    + void
+}
+
+class Boardview {
+    + void MovePiece
+}
+
+class Piece{
+    + void move(Position newPosition)
+    + boolean isValidMove(Position newPosition)
+    + void erase()
+}
+
+class Case{
+    + void ColorCase()
+}
+
+class Position {
+    + int x
+    + int y
+    + boolean equals(Position other)
+}
+
+class Color {
+    + String value
+    + Void SetColorValue()
+}
+
+class Animation {
+  + void highlightCheck(King king)
+  + void animateMove(PieceView piece, Position from, Position to)
+  + void fadeOutPiece(PieceView piece)
+  + void promotePiece(PieceView pawn, PieceView newPiece)
+}
+
+class King {
+    + boolean isInCheck()
+    + boolean isCheckmate()
+}
+
+class Pawn extends Piece {
+    + void Transform(Piece piece)
+}
+
+@enduml
