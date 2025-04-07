@@ -3,12 +3,43 @@ package modele.jeu;
 import modele.plateau.Case;
 import modele.plateau.Plateau;
 
-public class Jeu {
+public class Jeu extends Thread{
     private Plateau plateau;
 
     public Jeu() {
         plateau = new Plateau();
         initialiserPieces();
+        start();
+    }
+
+    @Override
+    public void run() {
+       jouerPartie();
+    }
+
+    Coup buff;
+    public synchronized void setCoup(Coup c) { // la vue va appeler set coup
+        buff = c;
+        notify(); // réveille le thread du jeu qui attend dans getCoup()
+    }
+
+
+    public synchronized Coup getCoup() throws InterruptedException { // elle sont synchronisé donc il n y a qu"un seul thread qui peut executer a la fois setCoup et getCoup, on ne pe
+        while (buff == null) { // on ne peut pas call getCoup et setCoup en meme temps
+            wait(); // attend qu’un coup soit joué
+        }
+        Coup c = buff;
+        buff = null; // reset pour le prochain tour
+        return c;
+    }
+
+
+    public void jouerPartie() {
+
+        while(true) {
+
+        }
+
     }
 
     private void initialiserPieces() {
