@@ -19,4 +19,6 @@ public class Case {
     public void setPiece(Piece piece) {
         this.piece = piece;
     }
+
+    // creer un set x et un set y pour Plateau pour getCaseRelative
 }

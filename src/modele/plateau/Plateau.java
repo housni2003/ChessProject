@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
+import plateau.Case;
 
 public class Plateau extends Observable {
     public final int SIZE_X = 8;
@@ -41,7 +42,7 @@ public class Plateau extends Observable {
         int y = p.y;
         switch (d) {
             case HAUT:
-                return Case(x, y - 1);
+                return source.setPiece(x, y - 1);
             case BAS:
                 return Case(x, y + 1);
             case GAUCHE:
