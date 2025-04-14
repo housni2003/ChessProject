@@ -1,12 +1,34 @@
 @startuml
-class ChessGUI {
-    + void ChooseGameMode()
-    + void ChooseColor()
-    + void
-}
+class VueControlleur {
+        - Plateau plateau
+        - Jeu jeu
+        - int sizeX
+        - int sizeY
+        - static int pxCase
+        - ImageIcon icoRoi
+        - Case caseClic1
+        - Case caseClic2
+        - JLabel[][] tabJLabel
 
-class Boardview {
-    + void MovePiece
+        + VueControlleur(Jeu _jeu)
+        - chargerLesIcones() : void
+        - chargerIcone(String urlIcone) : ImageIcon
+        - placerLesComposantsGraphiques() : void
+        - mettreAJourAffichage() : void
+        + update(Observable o, Object arg) : void
+    }
+
+class Plateau {
+    + final int SIZE_X
+    + final int SIZE_Y
+    - Case[][] cases
+    - Map<Case, Point> caseToCoord
+    - Point p
+
+    + Plateau()
+    + getCases() : Case[][]
+    + getCaseRelative(Case, Direction) : Case
+    + deplacerPiece(Case, Case) : void
 }
 
 class Piece{
@@ -19,23 +41,30 @@ class Case{
     + void ColorCase()
 }
 
-class Position {
-    + int x
-    + int y
-    + boolean equals(Position other)
+class Jeu {
+        - Plateau plateau
+        - Coup coup
+
+        + Jeu()
+        + run() : void
+        + setCoup(Coup c) : void
+        + getCoup() : Coup
+        - initialiserPieces() : void
+        + getPlateau() : Plateau
+        + demandeDeplacementPiece(Case depart, Case arrivee) : void
+    }
+
+class Decorateur {
+    - plateau : Plateau
 }
 
-class Color {
-    + String value
-    + Void SetColorValue()
-}
+class DecorateurLigne
+class DecorateurDiagonale
 
-class Animation {
-  + void highlightCheck(King king)
-  + void animateMove(PieceView piece, Position from, Position to)
-  + void fadeOutPiece(PieceView piece)
-  + void promotePiece(PieceView pawn, PieceView newPiece)
-}
+' Héritage
+Decorateur -- "1" Plateau
+DecorateurLigne --|> Decorateur
+DecorateurDiagonale --|> Decorateur
 
 class King {
     + boolean isInCheck()
@@ -45,5 +74,13 @@ class King {
 class Pawn extends Piece {
     + void Transform(Piece piece)
 }
+class Joueur
+
+Plateau "1" -- "n*n" Case
+Jeu "1" -- "1" Plateau
+Case "1" --> "0..1" Piece
+Decorateur "1" -- "1" Piece
+King --|> Piece
+Jeu "1" --> "2" Joueur : contient
 
 @enduml
