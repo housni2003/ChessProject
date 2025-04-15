@@ -17,6 +17,7 @@ public class Jeu extends Thread{
        jouerPartie();
     }
 
+
     Coup buff;
     public synchronized void setCoup(Coup c) { // la vue va appeler set coup
         buff = c;
